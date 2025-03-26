@@ -1,5 +1,5 @@
 import React from "react";
-import Canvas from "./component/Canvas";
+import Canvas from "./view/Canvas";
 import { CanvasViewModel } from "./viewModel/CanvasViewModel";
 import { CanvasModel } from "./model/CanvasModel";
 
@@ -9,7 +9,7 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <h1>그림판</h1>
+      {/* <h1></h1> */}
       <Canvas viewModel={viewModel} />
     </div>
   );

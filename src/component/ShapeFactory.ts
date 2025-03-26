@@ -5,7 +5,7 @@ export class ShapeFactory {
   // props가 startX, startY, endX, endY, color ... 속성을 가지고 있다고 전제
   static createShape(type: string, props: any): Shape {
     switch (type) {
-      case "rectangle":
+      case "Rectangle":
         const x = props.startX;
         const y = props.startY;
         const width = props.endX - props.startX;
