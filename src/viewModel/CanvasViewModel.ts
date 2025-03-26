@@ -1,13 +1,18 @@
 import { CanvasModel } from "../model/CanvasModel";
-import { Shape } from "../model/Shape";
 import React from "react";
+import { ShapeFactory } from "../component/ShapeFactory";
 
 export class CanvasViewModel {
   private model: CanvasModel;
   private canvas: HTMLCanvasElement | null = null;
   private ctx: CanvasRenderingContext2D | null = null;
   private drawing = false;
-  private currentShape: Shape | null = null;
+  private shapeType: string = "Rectangle";
+  private startX: number = 0;
+  private startY: number = 0;
+  private endX: number = 0;
+  private endY: number = 0;
+  private color: string = "black";
 
   constructor(model: CanvasModel) {
     this.model = model;
@@ -25,32 +30,29 @@ export class CanvasViewModel {
     this.drawing = true;
 
     const { offsetX, offsetY } = event.nativeEvent;
-
-    this.currentShape = {
-      type: "line",
-      startX: offsetX,
-      startY: offsetY,
-      endX: offsetX,
-      endY: offsetY,
-      color: "black",
-      thickness: 2,
-    };
+    this.startX = offsetX;
+    this.startY = offsetY;
   };
 
   handleMouseMove = (event: React.MouseEvent) => {
-    if (!this.drawing || !this.currentShape) return;
-
+    if (!this.drawing) return;
     const { offsetX, offsetY } = event.nativeEvent;
-    this.currentShape.endX = offsetX;
-    this.currentShape.endY = offsetY;
-
+    this.endX = offsetX;
+    this.endY = offsetY;
     this.redrawCanvas(); // 실시간 반영
   };
 
   handleMouseUp = () => {
-    if (this.currentShape) {
-      this.model.addShape(this.currentShape); // Model에 추가
-      this.currentShape = null;
+    if (this.drawing) {
+      this.model.addShape(
+        ShapeFactory.createShape(this.shapeType, {
+          startX: this.startX,
+          startY: this.startY,
+          endX: this.endX,
+          endY: this.endY,
+          color: this.color,
+        })
+      ); // Model에 추가
     }
     this.drawing = false;
   };
@@ -60,21 +62,17 @@ export class CanvasViewModel {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // 캔버스 초기화
 
     this.model.getShapes().forEach((shape) => {
-      this.ctx!.beginPath();
-      this.ctx!.moveTo(shape.startX, shape.startY);
-      this.ctx!.lineTo(shape.endX, shape.endY);
-      this.ctx!.strokeStyle = shape.color;
-      this.ctx!.lineWidth = shape.thickness;
-      this.ctx!.stroke();
+      shape.draw(this.ctx);
     });
 
-    if (this.currentShape) {
-      this.ctx!.beginPath();
-      this.ctx!.moveTo(this.currentShape.startX, this.currentShape.startY);
-      this.ctx!.lineTo(this.currentShape.endX, this.currentShape.endY);
-      this.ctx!.strokeStyle = this.currentShape.color;
-      this.ctx!.lineWidth = this.currentShape.thickness;
-      this.ctx!.stroke();
+    if (this.drawing) {
+      ShapeFactory.createShape(this.shapeType, {
+        startX: this.startX,
+        startY: this.startY,
+        endX: this.endX,
+        endY: this.endY,
+        color: this.color,
+      }).draw(this.ctx);
     }
   }
 }

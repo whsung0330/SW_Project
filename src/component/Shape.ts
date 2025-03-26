@@ -1,5 +1,5 @@
 export interface Shape {
-  draw(ctx: CanvasRenderingContext2D): void;
+  draw(ctx: CanvasRenderingContext2D | null): void;
   //move(dx: number, dy: number),
   //resize(w: number, h:number)
 }
@@ -14,6 +14,7 @@ export class Rectangle implements Shape {
   ) {}
 
   draw(ctx: CanvasRenderingContext2D) {
+    if (!ctx) throw new Error("context is null");
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }

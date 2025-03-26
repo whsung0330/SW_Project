@@ -1,4 +1,4 @@
-import { Shape } from "./Shape";
+import { Shape } from "../component/Shape";
 
 export class CanvasModel {
   private shapes: Shape[] = [];
