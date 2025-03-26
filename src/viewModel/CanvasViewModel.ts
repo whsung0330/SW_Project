@@ -7,7 +7,8 @@ export class CanvasViewModel {
   private canvas: HTMLCanvasElement | null = null;
   private ctx: CanvasRenderingContext2D | null = null;
   private drawing = false;
-  private shapeType: string = "Rectangle";
+
+  private shapeType: string = "Rectangle"; //TODO: 하나의 prop으로 정리하기?
   private startX: number = 0;
   private startY: number = 0;
   private endX: number = 0;
@@ -46,6 +47,7 @@ export class CanvasViewModel {
     if (this.drawing) {
       this.model.addShape(
         ShapeFactory.createShape(this.shapeType, {
+          id: this.model.countShapes(),
           startX: this.startX,
           startY: this.startY,
           endX: this.endX,
@@ -67,6 +69,7 @@ export class CanvasViewModel {
 
     if (this.drawing) {
       ShapeFactory.createShape(this.shapeType, {
+        id: this.model.countShapes(),
         startX: this.startX,
         startY: this.startY,
         endX: this.endX,

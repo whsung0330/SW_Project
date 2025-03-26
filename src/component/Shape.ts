@@ -1,16 +1,19 @@
 export interface Shape {
+  id: number;
   draw(ctx: CanvasRenderingContext2D | null): void;
+  //TODO: move, resize 추가
   //move(dx: number, dy: number),
   //resize(w: number, h:number)
 }
 
 export class Rectangle implements Shape {
   constructor(
-    private x: number,
-    private y: number,
-    private width: number,
-    private height: number,
-    private color: string
+    public id: number,
+    public x: number,
+    public y: number,
+    public width: number,
+    public height: number,
+    public color: string
   ) {}
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -21,11 +24,13 @@ export class Rectangle implements Shape {
 }
 
 export class Circle implements Shape {
+  //TODO: ellipse로 수정
   constructor(
-    private centerX: number,
-    private centerY: number,
-    private radius: number,
-    private color: string
+    public id: number,
+    public centerX: number,
+    public centerY: number,
+    public radius: number,
+    public color: string
   ) {}
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -35,6 +40,8 @@ export class Circle implements Shape {
     ctx.fill();
   }
 }
+
+//TODO: image, line 추가
 
 // vm
 // class ShapeViewModel {

@@ -18,6 +18,10 @@ export class CanvasModel {
     return [...this.shapes]; // 원본 배열이 수정되지 않도록 복사본 반환
   }
 
+  countShapes(): number {
+    return this.shapes.length;
+  }
+
   subscribe(listener: () => void) {
     this.listeners.push(listener);
   }

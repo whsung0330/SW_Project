@@ -1,4 +1,4 @@
-import { Rectangle, Shape } from "./Shape";
+import { Circle, Rectangle, Shape } from "./Shape";
 
 export class ShapeFactory {
   // TODO: props 타입 정의하기
@@ -10,13 +10,13 @@ export class ShapeFactory {
         const y = props.startY;
         const width = props.endX - props.startX;
         const height = props.endY - props.startY;
-        return new Rectangle(x, y, width, height, props.color);
-      //   case "circle":
-      //     //TODO: 이거 ellipse 못그리는거 같은데
-      //     const centerX = (props.startX + props.endX) / 2;
-      //     const centerY = (props.startY + props.endY) / 2;
-      //     const radius = props.endX - props.startX;
-      //     return new Circle(centerX, centerY, radius, props.color);
+        return new Rectangle(props.id, x, y, width, height, props.color);
+      case "circle":
+        //TODO: 이거 ellipse 못그리는거 같은데
+        const centerX = (props.startX + props.endX) / 2;
+        const centerY = (props.startY + props.endY) / 2;
+        const radius = props.endX - props.startX;
+        return new Circle(props.id, centerX, centerY, radius, props.color);
       default:
         throw new Error("Unknown type shape");
     }
