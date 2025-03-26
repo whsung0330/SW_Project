@@ -8,7 +8,7 @@ export class CanvasViewModel {
   private ctx: CanvasRenderingContext2D | null = null;
   private drawing = false;
 
-  private shapeType: string = "Rectangle"; //TODO: 하나의 prop으로 정리하기?
+  public shapeType: string = "rectangle"; //TODO: 하나의 prop으로 정리하기?
   private startX: number = 0;
   private startY: number = 0;
   private endX: number = 0;
