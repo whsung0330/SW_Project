@@ -43,16 +43,13 @@ export class Rectangle implements Shape {
   }
 }
 
-export class Circle implements Shape {
-  //TODO: ellipse로 수정
+export class Ellipse implements Shape {
   constructor(
     public id: number,
     public topLeftX: number,
     public topLeftY: number,
     public bottomRightX: number,
-    public bottomRightY: number, 
-    public radiusX: number,
-    public radiusY: number,
+    public bottomRightY: number,
     public color: string
   ) {}
 
@@ -62,6 +59,14 @@ export class Circle implements Shape {
 
   get centerY(): number {
     return (this.bottomRightY + this.topLeftY) / 2;
+  }
+
+  get radiusX(): number {
+    return Math.abs(this.bottomRightX - this.topLeftX) / 2;
+  }
+
+  get radiusY(): number {
+    return Math.abs(this.bottomRightY - this.topLeftY) / 2;
   }
 
   draw(ctx: CanvasRenderingContext2D) {

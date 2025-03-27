@@ -1,4 +1,4 @@
-import { Circle, Rectangle, Shape } from "./Shape";
+import { Ellipse, Rectangle, Shape } from "./Shape";
 
 interface ShapeProps {
   id: number;
@@ -18,10 +18,7 @@ export class ShapeFactory {
         return new Rectangle(id, startX, startY, endX, endY, color);
 
       case "circle":
-        // 타원
-        const radiusX = Math.abs(endX - startX) / 2;
-        const radiusY = Math.abs(endY - startY) / 2;
-        return new Circle(id, startX, startY, endX, endY, radiusX, radiusY, color);
+        return new Ellipse(id, startX, startY, endX, endY, color);
       
       default:
         throw new Error(`Unknown type shape ${type}`);
