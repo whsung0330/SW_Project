@@ -9,19 +9,32 @@ interface ShapeProps {
   color: string;
 }
 
+interface ShapeCreator {
+  create(props: ShapeProps): Shape;
+}
+
+class RectangleCreator implements ShapeCreator {
+  create(props: ShapeProps): Shape {
+    return new Rectangle(props.id, props.startX, props.startY, props.endX, props.endY, props.color);
+  }
+}
+
+class EllipseCreator implements ShapeCreator {
+  create(props: ShapeProps): Shape {
+    return new Ellipse(props.id, props.startX, props.startY, props.endX, props.endY, props.color);
+  }
+}
+
 export class ShapeFactory {
+  private static creators: Record<string, ShapeCreator> = {
+    rectangle: new RectangleCreator(),
+    ellipse: new EllipseCreator(),
+  };
+
+
   static createShape(type: string, props: ShapeProps): Shape {
-    const { id, startX, startY, endX, endY, color } = props;
-
-    switch (type) {
-      case "rectangle":
-        return new Rectangle(id, startX, startY, endX, endY, color);
-
-      case "circle":
-        return new Ellipse(id, startX, startY, endX, endY, color);
-      
-      default:
-        throw new Error(`Unknown type shape ${type}`);
-    }
+    const creator = this.creators[type];
+    if (!creator) throw new Error(`Unknown type shape ${type}`);
+    return creator.create(props);
   }
 }
