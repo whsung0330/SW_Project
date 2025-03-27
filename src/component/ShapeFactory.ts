@@ -1,22 +1,28 @@
 import { Circle, Rectangle, Shape } from "./Shape";
 
+interface ShapeProps {
+  id: number;
+  startX: number;
+  startY: number;
+  endX: number;
+  endY: number;
+  color: string;
+}
+
 export class ShapeFactory {
-  // TODO: props 타입 정의하기
-  // props가 startX, startY, endX, endY, color ... 속성을 가지고 있다고 전제
-  static createShape(type: string, props: any): Shape {
+  static createShape(type: string, props: ShapeProps): Shape {
+    const { id, startX, startY, endX, endY, color } = props;
+
     switch (type) {
       case "rectangle":
-        const x = props.startX;
-        const y = props.startY;
-        const width = props.endX - props.startX;
-        const height = props.endY - props.startY;
-        return new Rectangle(props.id, x, y, width, height, props.color);
+        return new Rectangle(id, startX, startY, endX, endY, color);
+
       case "circle":
-        //TODO: 이거 ellipse 못그리는거 같은데
-        const centerX = (props.startX + props.endX) / 2;
-        const centerY = (props.startY + props.endY) / 2;
-        const radius = Math.abs(props.endX - props.startX);
-        return new Circle(props.id, centerX, centerY, radius, props.color);
+        // 타원
+        const radiusX = Math.abs(endX - startX) / 2;
+        const radiusY = Math.abs(endY - startY) / 2;
+        return new Circle(id, startX, startY, endX, endY, radiusX, radiusY, color);
+      
       default:
         throw new Error(`Unknown type shape ${type}`);
     }
