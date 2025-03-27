@@ -1,8 +1,12 @@
-interface Observer {
-  update: (data: any) => void;
+import { Observer } from "./Observer";
+
+interface ObservableInterface {
+  subscribe(observer: Observer): void;
+  unsubscribe(observer: Observer): void;
+  notify(data: any): void;
 }
 
-class Observable {
+class Observable implements ObservableInterface {
   private observers: Observer[] = [];
 
   subscribe(observer: Observer): void {
@@ -18,4 +22,4 @@ class Observable {
   }
 }
 
-export { Observer, Observable };
+export { ObservableInterface, Observable };

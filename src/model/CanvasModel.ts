@@ -1,4 +1,4 @@
-import { Shape } from "../Entity/Shape";
+import { Shape } from "../entity/Shape";
 
 export class CanvasModel {
   private shapes: Shape[] = [];

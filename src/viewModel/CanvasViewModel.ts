@@ -1,6 +1,6 @@
 import { CanvasModel } from "../model/CanvasModel";
 import React from "react";
-import { ShapeFactory } from "../Entity/ShapeFactory";
+import { ShapeFactory } from "../entity/ShapeFactory";
 import { Observable } from "./Observable";
 
 export class CanvasViewModel extends Observable {
