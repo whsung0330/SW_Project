@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { CanvasViewModel } from "../viewModel/CanvasViewModel";
 
 const ShapeButton: React.FC<{ viewModel: CanvasViewModel }> = ({
