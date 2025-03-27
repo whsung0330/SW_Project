@@ -1,8 +1,9 @@
 import { CanvasModel } from "../model/CanvasModel";
 import React from "react";
-import { ShapeFactory } from "../component/ShapeFactory";
+import { ShapeFactory } from "../Entity/ShapeFactory";
+import { Observable } from "./Observable";
 
-export class CanvasViewModel {
+export class CanvasViewModel extends Observable {
   private model: CanvasModel;
   private canvas: HTMLCanvasElement | null = null;
   private ctx: CanvasRenderingContext2D | null = null;
@@ -15,7 +16,8 @@ export class CanvasViewModel {
   private endY: number = 0;
   private color: string = "black";
 
-  constructor(model: CanvasModel) {
+  private constructor(model: CanvasModel) {
+    super();
     this.model = model;
     this.model.subscribe(() => this.redrawCanvas()); // Model이 변경될 때 View 업데이트
   }
